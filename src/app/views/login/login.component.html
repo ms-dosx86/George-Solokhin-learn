@@ -1,1 +1,47 @@
-<p>login works!</p>
+<form class="auth-form" [formGroup]="form" (ngSubmit)="login()">
+  <h1 class="page-title">Authorization</h1>
+  <mat-form-field class="textfield" appearance="fill">
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      [errorStateMatcher]="matcher"
+      placeholder="pat@example.com"
+      formControlName="email"
+    />
+    <mat-error *ngIf="errors.email">{{ errors.email }}</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field class="textfield" appearance="fill">
+    <mat-label>Enter your password</mat-label>
+    <input
+      matInput
+      [type]="hidePassword ? 'password' : 'text'"
+      formControlName="password"
+      [errorStateMatcher]="matcher"
+    />
+    <mat-error *ngIf="errors.password">{{ errors.password }}</mat-error>
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="hidePassword = !hidePassword"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hidePassword"
+    >
+      <mat-icon>{{ hidePassword ? "visibility_off" : "visibility" }}</mat-icon>
+    </button>
+  </mat-form-field>
+  <br />
+  <div class="auth-link-box">
+    <section class="example-section">
+      <mat-checkbox formControlName="rememberUser" class="example-margin"
+        >Remember me</mat-checkbox
+      >
+    </section>
+    <a routerLink="/registration"> Registration </a>
+  </div>
+
+  <button class="mt-20 enter-button" mat-raised-button color="primary">
+    Enter
+  </button>
+</form>

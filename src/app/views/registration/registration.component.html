@@ -1,1 +1,81 @@
-<p>registration works!</p>
+<form class="auth-form" [formGroup]="form" (ngSubmit)="registrate()">
+  <h1 class="page-title">Registration</h1>
+  <mat-form-field class="textfield" appearance="fill">
+    <mat-label>Enter your name</mat-label>
+    <input
+      matInput
+      [errorStateMatcher]="matcher"
+      placeholder="pat@example.com"
+      formControlName="userName"
+    />
+    <mat-error *ngIf="errors.userName">{{ errors.userName }}</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field class="textfield" appearance="fill">
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      [errorStateMatcher]="matcher"
+      placeholder="pat@example.com"
+      formControlName="email"
+    />
+    <mat-error *ngIf="errors.email">{{ errors.email }}</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field class="textfield" appearance="fill">
+    <mat-label>Enter your password</mat-label>
+    <input
+      matInput
+      [type]="hidePassword.first ? 'password' : 'text'"
+      formControlName="password"
+      [errorStateMatcher]="matcher"
+    />
+    <mat-error *ngIf="errors.password">{{ errors.password }}</mat-error>
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="changePasswordVisibility('first')"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hidePassword.first"
+    >
+      <mat-icon>{{
+        hidePassword.first ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </button>
+  </mat-form-field>
+  <br />
+  <mat-form-field class="textfield" appearance="fill">
+    <mat-label>Repeat your password</mat-label>
+    <input
+      matInput
+      [type]="hidePassword.second ? 'password' : 'text'"
+      formControlName="secondPassword"
+      [errorStateMatcher]="matcher"
+    />
+    <mat-error *ngIf="errors.secondPassword">{{
+      errors.secondPassword
+    }}</mat-error>
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      (click)="changePasswordVisibility('second')"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hidePassword.second"
+    >
+      <mat-icon>{{
+        hidePassword.second ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </button>
+  </mat-form-field>
+  <br />
+  <div class="registration-link-box">
+    <a routerLink="/login"> Return to authorization </a>
+  </div>
+
+  <br />
+  <button class="mt-20 enter-button" mat-raised-button color="primary">
+    Register
+  </button>
+</form>

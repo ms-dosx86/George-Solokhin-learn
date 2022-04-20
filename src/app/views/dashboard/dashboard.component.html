@@ -1,1 +1,16 @@
-<p>dashboard works!</p>
+<div class="page-content">
+  <h1 class="page-title">Main</h1>
+  <div *ngIf="(userData$ | async)?.isLogin">
+    <div><b>Name:</b> {{ (userData$ | async)?.userName }}</div>
+    <div><b>E-mail:</b> {{ (userData$ | async)?.email }}</div>
+  </div>
+
+  <button
+    (click)="logout()"
+    class="mt-20 enter-button"
+    mat-raised-button
+    color="primary"
+  >
+    Logout
+  </button>
+</div>
