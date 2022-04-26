@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-
-const isLogin = true;
+import { AuthGuard } from './guards/auth.guard';
+import { NotAuthGuard } from './guards/not-auth.guard';
 
 const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
       import('./views/login/login.module').then((m) => m.LoginModule),
+    canLoad: [NotAuthGuard],
   },
   {
     path: 'registration',
@@ -16,6 +16,7 @@ const routes: Routes = [
       import('./views/registration/registration.module').then(
         (m) => m.RegistrationModule
       ),
+    canLoad: [NotAuthGuard],
   },
   {
     path: '',
@@ -23,6 +24,11 @@ const routes: Routes = [
       import('./views/dashboard/dashboard.module').then(
         (m) => m.DashboardModule
       ),
+    canLoad: [AuthGuard],
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];
 

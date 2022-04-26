@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AuthorizationActions } from './store/authorization/authorization.actions';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  title = 'test-project1';
+export class AppComponent implements OnInit {
+  constructor(private store$: Store) {}
+
+  ngOnInit(): void {
+    localStorage.getItem('token') &&
+      this.store$.dispatch(AuthorizationActions.getUserDataAction());
+  }
 }
