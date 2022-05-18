@@ -1,0 +1,42 @@
+<ng-container
+  *ngIf="filmsData$ | async as filmsData; else error"
+  [ngTemplateOutlet]="content"
+  [ngTemplateOutletContext]="{ $implicit: filmsData }"
+>
+</ng-container>
+
+<ng-template #content let-filmsData>
+  <div *ngIf="filmsData.loading">Загрузка...</div>
+
+  <div *ngIf="filmsData.error">
+    {{ filmsData.error }}
+  </div>
+
+  <div *ngIf="filmsData.films as filmList">
+    <div class="films-list">
+      <a
+        class="example-card"
+        *ngFor="let film of filmList.items"
+        [routerLink]="['/films/'] + film.kinopoiskId"
+      >
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ film.nameRu ?? film.nameEn }}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image [src]="film.posterUrlPreview" alt="Film poster" />
+        </mat-card>
+      </a>
+    </div>
+    <mat-paginator
+      [length]="filmList.total"
+      [pageSize]="20"
+      itemsPerPageLabel="Films showed"
+      showFirstLastButtons="true"
+      aria-label="Select page"
+      (page)="onPageChange($event.pageIndex)"
+    >
+    </mat-paginator>
+  </div>
+</ng-template>
+
+<ng-template #error>Ошибка загрузки страницы</ng-template>

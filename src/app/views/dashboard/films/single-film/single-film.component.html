@@ -1,0 +1,46 @@
+<ng-container
+  *ngIf="filmData$ | async as filmData; else error"
+  [ngTemplateOutlet]="currentFilm"
+  [ngTemplateOutletContext]="{ $implicit: filmData }"
+>
+</ng-container>
+
+<ng-template #currentFilm let-filmData>
+  <a routerLink="/films">Вернуться назад</a>
+
+  <div *ngIf="filmData.loading">Загрузка...</div>
+
+  <div *ngIf="filmData.error">
+    {{ filmData.error }}
+  </div>
+
+  <mat-card *ngIf="filmData.currentFilm as film" class="example-card">
+    <mat-card-header>
+      <mat-card-title>{{ film.nameRu }}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="film.posterUrlPreview" alt="Film image" />
+    <h3>Info about film</h3>
+    <div>
+      Film length: <b>{{ film.filmLength }}</b> minutes
+    </div>
+    <div>
+      Year of issue: <b>{{ film.year }}</b>
+    </div>
+    <h3>Description</h3>
+    <p>
+      {{ film.description }}
+    </p>
+    <h3>Ratings</h3>
+    <div>
+      Rating Kinopoisk: <b>{{ film.ratingKinopoisk }}</b>
+    </div>
+    <div>
+      Rating Imdb: <b>{{ film.ratingImdb }}</b>
+    </div>
+    <div>
+      Rating GoodReview: <b>{{ film.ratingGoodReview }}</b>
+    </div>
+  </mat-card>
+</ng-template>
+
+<ng-template #error>Ошибка загрузки страницы</ng-template>

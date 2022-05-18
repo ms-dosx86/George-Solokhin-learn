@@ -96,7 +96,6 @@ export class RegistrationComponent {
       this.validateControls();
       return;
     }
-    console.log(this.form.value);
     this.store$.dispatch(
       AuthorizationActions.registrationAction(this.form.value)
     );
