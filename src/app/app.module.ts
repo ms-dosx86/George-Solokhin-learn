@@ -16,10 +16,12 @@ import { AuthorizationService } from './store/authorization/authorization.servic
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NotAuthGuard } from './guards/not-auth.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

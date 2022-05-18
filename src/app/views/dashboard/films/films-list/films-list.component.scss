@@ -1,0 +1,14 @@
+.example-card {
+  width: 400px;
+  margin: 20px 0px;
+  img {
+    margin: 0px;
+    width: 100%;
+  }
+}
+
+.films-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
